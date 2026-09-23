@@ -1,0 +1,374 @@
+[
+    {
+        "id": "9b01d4cd07ddd363",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "tab_iiot_ismael",
+        "type": "tab",
+        "label": "IIoT Taller Monitor",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "broker_hivemq_public",
+        "type": "mqtt-broker",
+        "name": "HiveMQ Public Broker",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ui_tab_monitor",
+        "type": "ui_tab",
+        "name": "Planta Industrial",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ui_group_taller",
+        "type": "ui_group",
+        "name": "Monitoreo en Tiempo Real",
+        "tab": "ui_tab_monitor",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "262bd42d889c96d8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "mqtt_in_telemetria",
+        "type": "mqtt in",
+        "z": "tab_iiot_ismael",
+        "name": "Receptor MQTT (Taller)",
+        "topic": "ismael/taller/telemetria",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "broker_hivemq_public",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "debug_monitor",
+                "fn_procesar_datos",
+                "313da1de9fa721c6"
+            ]
+        ]
+    },
+    {
+        "id": "debug_monitor",
+        "type": "debug",
+        "z": "tab_iiot_ismael",
+        "name": "Consola Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fn_procesar_datos",
+        "type": "function",
+        "z": "tab_iiot_ismael",
+        "name": "Desglosar Variables",
+        "func": "let data = msg.payload;\n\n// Mensaje para el Gauge de Temperatura\nlet msgTemp = { payload: data.temperature };\n\n// Mensaje para el Gauge de Humedad\nlet msgHum = { payload: data.humidity };\n\n// Mensaje para el Estado Operativo\nlet msgStatus = { payload: data.status };\n\nreturn [msgTemp, msgHum, msgStatus];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "ui_gauge_temp"
+            ],
+            [
+                "ui_gauge_hum"
+            ],
+            [
+                "ui_text_status"
+            ]
+        ]
+    },
+    {
+        "id": "ui_gauge_temp",
+        "type": "ui_gauge",
+        "z": "tab_iiot_ismael",
+        "name": "Temperatura",
+        "group": "ui_group_taller",
+        "order": 1,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Temperatura Cabina",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 60,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "35",
+        "seg2": "45",
+        "diff": false,
+        "className": "",
+        "x": 730,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ui_gauge_hum",
+        "type": "ui_gauge",
+        "z": "tab_iiot_ismael",
+        "name": "Humedad",
+        "group": "ui_group_taller",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Humedad Relativa",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#00b500",
+            "#00b500",
+            "#007acc"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ui_text_status",
+        "type": "ui_text",
+        "z": "tab_iiot_ismael",
+        "group": "ui_group_taller",
+        "order": 3,
+        "width": 12,
+        "height": 2,
+        "name": "Estado Sistema",
+        "label": "ESTADO OPERATIVO: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000",
+        "x": 740,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "313da1de9fa721c6",
+        "type": "function",
+        "z": "tab_iiot_ismael",
+        "name": "Formatear para supabase",
+        "func": "let data = msg.payload;\n\nmsg.headers = {\n    \"apikey\": \"Bearer TU_ANON_KEY\",\n    \"Authorization\": \"Bearer sb_p...\",\n    \"Content-Type\": \"application/json\",\n    \"Prefer\": \"return=minimal\"\n};\n\nmsg.payload = {\n    \"sensor_id\": \"ESP32_TALLER_01\",\n    \"temperature\": data.temperature,\n    \"humidity\": data.humidity,\n    \"status\": data.status\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "4c294ac0f0e7cbe6"
+            ]
+        ]
+    },
+    {
+        "id": "4c294ac0f0e7cbe6",
+        "type": "http request",
+        "z": "tab_iiot_ismael",
+        "name": "Insertar en supabase",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://ugrpejgubyfntebqjezw.supabase.co/rest/v1/telemetria_taller",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "0c8cbfe93ea264bd"
+            ]
+        ]
+    },
+    {
+        "id": "0c8cbfe93ea264bd",
+        "type": "debug",
+        "z": "tab_iiot_ismael",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e8718a235d6588c0",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
