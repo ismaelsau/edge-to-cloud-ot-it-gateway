@@ -43,4 +43,4 @@ Demostración del sistema en funcionamiento donde se aprecia el hardware físico
 # Autor
 Ismael Saucedo Vargas
 Ingeniería Mecatrónica | Especialización en Integración OT/IT
-LinkedIn: 
+LinkedIn: www.linkedin.com/in/ismael-saucedo-vargas-368325439 
